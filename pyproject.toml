@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "castai"
+version = "0.1.0"
+description = ""
+authors = ["Nikola Rahman <nikola.rahman@carrier.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+datasets = "^3.0.0"
+openai = "^1.46.1"
+evaluate = "^0.4.3"
+jsonlines = "^4.0.0"
+tqdm = "^4.66.5"
+transformers = {extras = ["torch"], version = "^4.44.2"}
+torch = "^2.4.1"
+pandas = "^2.2.2"
+matplotlib = "^3.9.2"
+tiktoken = "^0.7.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
