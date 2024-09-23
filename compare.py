@@ -7,6 +7,7 @@ import tiktoken
 
 # Function to load predictions from a pickle file
 def load_predictions_from_file(filename):
+    """Load predictions from a pickle file."""
     with open(filename, "rb") as f:
         data = pickle.load(f)
     predictions = [{"id": id, "prediction_text": pred} for id, pred in zip(data["id"], data["predictions"])]
@@ -14,22 +15,41 @@ def load_predictions_from_file(filename):
 
 # Function to evaluate predictions using the SQuAD metric
 def evaluate_predictions(predictions, dataset):
+    """Evaluate predictions using the standard SQuAD metric."""
     squad_metric = load_metric("squad")
     references = [{"id": example["id"], "answers": {"text": example['answers']['text'], "answer_start": example['answers']['answer_start']}} for example in dataset]
     results = squad_metric.compute(predictions=predictions, references=references)
     return results
 
 def llama_cost(price_instance_per_hour, tokens_per_second):
-    # calculate $ per million tokens based on the price per instance and tokens per second
+    """Calculate cost per million tokens for Llama model."""
     price_per_million_tokens = price_instance_per_hour / (tokens_per_second * 3600) * 1e6
 
     return price_per_million_tokens
 
 def gpt_cost(price_input_tokens_per_million, price_output_tokens_per_million, input_tokens_percent):
-    # calculate cost per million tokens based on input and output token prices
+    """Calculate cost per million tokens for GPT model."""
     price_per_million_tokens = price_input_tokens_per_million * input_tokens_percent + price_output_tokens_per_million * (1 - input_tokens_percent)
 
     return price_per_million_tokens
+
+# Function to calculate the length of question and context in tokens
+def calculate_length_in_tokens(example, enc):
+    """Calculate the length of question and context in tokens."""
+    question_tokens = enc.encode(example['question'])
+    context_tokens = enc.encode(example['context'])
+    answer_tokens = enc.encode(example['answers']['text'][0])
+    return len(question_tokens) + len(context_tokens) + len(answer_tokens)
+
+# Function to calculate accuracy for each example
+def calculate_accuracy(predictions, dataset):
+    """Calculate accuracy for each example."""
+    correct = 0
+    total = len(predictions)
+    for pred, example in zip(predictions, dataset):
+        if pred['prediction_text'] in example['answers']['text']:
+            correct += 1
+    return correct / total if total > 0 else 0
 
 # Load the validation dataset
 val_dataset = load_dataset("rajpurkar/squad", split="validation")#, split=[f"validation[{k}%:{k+1}%]" for k in range(0, 100, 100)])
@@ -37,8 +57,7 @@ val_dataset = val_dataset.select(range(0, len(val_dataset), 100))
 
 # List of pickle files with results
 models = ["baseline_zero_shot", "openai_gpt35", "openai_gpt4o", "finetuned"]
-pickle_files = [f"predictions_{model}.pickle" for model in models]
-pickle_files = [f"data/{x}" for x in pickle_files]
+pickle_files = [f"data/predictions_{model}.pickle" for model in models]
 
 # Store results for visualization
 exact_match_scores = []
@@ -94,22 +113,6 @@ plt.tight_layout()
 # save the plot
 plt.savefig("plots/comparison_plot.png", dpi=300, bbox_inches='tight')
 plt.show()
-
-# Function to calculate the length of question and context in tokens
-def calculate_length_in_tokens(example, enc):
-    question_tokens = enc.encode(example['question'])
-    context_tokens = enc.encode(example['context'])
-    answer_tokens = enc.encode(example['answers']['text'][0])
-    return len(question_tokens) + len(context_tokens) + len(answer_tokens)
-
-# Function to calculate accuracy for each example
-def calculate_accuracy(predictions, dataset):
-    correct = 0
-    total = len(predictions)
-    for pred, example in zip(predictions, dataset):
-        if pred['prediction_text'] in example['answers']['text']:
-            correct += 1
-    return correct / total if total > 0 else 0
 
 # Initialize the tokenizer
 enc = tiktoken.encoding_for_model("gpt-4o")
