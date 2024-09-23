@@ -68,6 +68,8 @@ In addition to fine-tuning the `unsloth/Meta-Llama-3.1-8B` model, we also evalua
 We fine-tuned the LLM using LoRA (Low-Rank Adaptation) method of rank 32.
 Reasoning: LoRA is a computationally efficient method for fine-tuning large language models, and rank 32 yields about 80M trainable parameters which can fit into a T4 GPU. We also used the 4bit quantized model to reduce memory usage and increase speed, trained the LoRA adapter in mixed precision, used the 8bit Adam optimizer and Unsloth to optimize the memory usage and speed as much as possible to allow for faster iterations and cheaper resource usage.
 
+The whole fine-tuning process takes about 1h on a T4 GPU on Google Colab for 1 epoch on ~3,500 examples.
+
 ### 3. Post-training Evaluation
 
 **Implementation:**
