@@ -125,7 +125,7 @@ plt.savefig("length_distribution_plot.png", dpi=300, bbox_inches='tight')
 plt.show()
 
 # Define bins for lengths in tokens
-bins = [0, 50, 100, 150, 1000]
+bins = [0, 100, 150, 1000]
 bin_labels = [f"{bins[i]}-{bins[i+1]}" for i in range(len(bins)-1)]
 
 # Store lengths and accuracies for visualization
