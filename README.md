@@ -1,5 +1,13 @@
 # CastAI AI Optimizer Tech Exercises
 
+## System Design
+
+Having in mind the `ai-optimizer-proxy` service that can rounte requests to different models, we can design the system as follows:
+
+# ![plot](plots/systemdiag.png)
+
+The AI optimizer proxy is represented as `Chat completion service` in the diagram and the fine-tuned model that is the object of this task can be accessed through the `Model Serving Service` that will take the same API request as the current service that is based on `litellm`. The `ML Fine-tuning Service` is the object of this assignment and contained in this repo.
+
 ## Homework Assignment Report
 
 ### File Contents
@@ -24,12 +32,14 @@ The objective of this assignment was to fine-tune an LLM to improve its performa
 
 **Implementation:**
 
-The initial evaluation was performed using the `unsloth/Meta-Llama-3.1-8B` model. The subset of SQuAD validation dataset was used for this evaluation, where prompts were formatted to present a context, a question, and an expected answer.
+The initial evaluation was performed using the `unsloth/Meta-Llama-3.1-8B` model. The subset of SQuAD validation dataset was used for this evaluation, where prompts were formatted to present a context, a question, and an expected answer. The validation had 106 examples in total approx. equally sampled from each `title` field in the dataset.
 
 **Reasoning:**
 
 - We used only a subset of the SQuAD dataset because of the time and resource constraints in Google Colab.
 - We used LLAMA-3.1-8B as the base model because it can fit into a T4 GPU on Google Colab and is a good use case for efficient fine-tuning.
+- We used LoRA because it is a computationally efficient method for fine-tuning large language models.
+- F1 score and Exact Match were used as evaluation metrics because they are standard metrics for SQuAD evaluation and they were deemed appropriate for this task.
 
 **Results:**
 
