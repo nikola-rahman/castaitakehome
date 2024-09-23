@@ -85,7 +85,7 @@ Below is a table comparing the performance of the baseline zero-shot model, the 
 | OpenAI GPT-4.0          | 76.42           | 88.58        |
 | Fine-tuned LLAMA 3.1 8B              | 82.08           | 92.66        |
 
-# ![plot](comparison_plot.png)
+# ![plot](plots/comparison_plot.png)
 
 From these results we can see that the fine-tuned model outperformed both the baseline zero-shot model and the OpenAI models in both exact match and F1 score.
 
@@ -93,7 +93,7 @@ Further inspection of accuracy vs number of input tokens shows that the fine-tun
 
 Since we as Cast.ai have a mission to reduce costs for our customers we add a cost vs accuracy plot to show the cost effectiveness of the fine-tuned model compared to the OpenAI models. Assuming that we can achieve 10 tokens per second on a `t4g.large` instance (8GB RAM) that costs $0.0672 per hour, we can see that the fine-tuned model is more cost effective than the gpt-4o model with higher accuracy and comparable in terms of cost to the gpt-3.5 model with significantly higher accuracy. In order to compute the cost of OpenAI models we estimate that 90% of tokens are input tokens and 10% are output tokens from the SQuAD dataset.
 
-# ![plot](accuracy_vs_cost_plot.png)
+# ![plot](plots/accuracy_vs_cost_plot.png)
 
 ## Key Findings
 
