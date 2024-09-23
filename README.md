@@ -2,6 +2,17 @@
 
 ## Homework Assignment Report
 
+### File Contents
+
+- **compare.py**: Contains the code to compare the performance of all models
+- **Nikola_Rahman_CastAI_Take_Home_Assignment.ipynb**: Jupyter notebook containing the implementation of the assignment.
+- **gpt_predict.py**: Contains the code to run predictions on OpenAI models
+- **predictions_baseline_zero_shot.pickle**: Contains the predictions of the baseline zero-shot model
+- **predictions_finetuned.pickle**: Contains the predictions of the fine-tuned model
+- **predictions_openai_gpt35.pickle**: Contains the predictions of the OpenAI GPT-3.5 Instruct model
+- **predictions_openai_gpt40.pickle**: Contains the predictions of the OpenAI GPT-4.0 model
+- **trainer_stats.pickle**: Contains the training statistics of the fine-tuned model
+
 ### Objective
 
 The objective of this assignment was to fine-tune an LLM to improve its performance on question-answering tasks using the SQuAD (Stanford Question Answering Dataset).
@@ -94,4 +105,5 @@ Since we as Cast.ai have a mission to reduce costs for our customers we add a co
 
 ## Challenges Encountered
 
-Limited compute resources on Google Colab required us to use a subset of the SQuAD dataset for both training and evaluation. This approach allowed us to balance performance improvements with practical constraints.
+- Benchmarking LLM tokens per second would require a more detailed analysis of the model's performance on different hardware configurations. This information would be crucial for a more accurate cost comparison with OpenAI models. What is crucial is to ensure that the model is cost-effective for our customers by optimizing the model using for example llama.cpp or vLLM and choosing the right hardware or instance type.
+- Limited compute resources on Google Colab required us to use a subset of the SQuAD dataset for both training and evaluation. This approach allowed us to balance performance improvements with practical constraints.
