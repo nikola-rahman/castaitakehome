@@ -109,3 +109,13 @@ Since we as Cast.ai have a mission to reduce costs for our customers we add a co
 
 - Benchmarking LLM tokens per second would require a more detailed analysis of the model's performance on different hardware configurations. This information would be crucial for a more accurate cost comparison with OpenAI models. What is crucial is to ensure that the model is cost-effective for our customers by optimizing the model using for example llama.cpp or vLLM and choosing the right hardware or instance type.
 - Limited compute resources on Google Colab required us to use a subset of the SQuAD dataset for both training and evaluation. This approach allowed us to balance performance improvements with practical constraints.
+
+## Instructions how to use the code
+
+0. Set up the environment using Poetry via the `poetry install` command.
+
+1. Run the Jupiter notebook `Nikola_Rahman_CastAI_Take_Home_Assignment.ipynb` to train the model and save the predictions for the baseline and fine-tuned LLAMA 3.1 8B models,
+
+2. Run the `gpt_predict.py` script to generate predictions for the OpenAI GPT-3.5 and GPT-4.0 models. You have to export the OpenAI API key as an environment variable `OPENAI_API_KEY` before running the script.
+
+3. Run the `compare.py` script to compare the performance of all models and generate the plots.
