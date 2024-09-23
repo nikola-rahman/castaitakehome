@@ -92,7 +92,7 @@ ax[1].set_xticklabels([])
 
 plt.tight_layout()
 # save the plot
-plt.savefig("comparison_plot.png", dpi=300, bbox_inches='tight')
+plt.savefig("plots/comparison_plot.png", dpi=300, bbox_inches='tight')
 plt.show()
 
 # Function to calculate the length of question and context in tokens
@@ -121,7 +121,7 @@ plt.hist(lengths_in_tokens, bins=50, color='skyblue', edgecolor='black')
 plt.xlabel('Question + Context Length (Tokens)')
 plt.ylabel('Count')
 plt.title('Distribution of Question + Context Lengths (Tokens)')
-plt.savefig("length_distribution_plot.png", dpi=300, bbox_inches='tight')
+plt.savefig("plots/length_distribution_plot.png", dpi=300, bbox_inches='tight')
 plt.show()
 
 # Define bins for lengths in tokens
@@ -168,7 +168,7 @@ ax.set_title('Accuracy vs Question + Context Length Bins (Tokens)')
 ax.legend()
 
 plt.tight_layout()
-plt.savefig("accuracy_vs_length_bins_plot.png", dpi=300, bbox_inches='tight')
+plt.savefig("plots/accuracy_vs_length_bins_plot.png", dpi=300, bbox_inches='tight')
 plt.show()
 
 # print finetuned and gpt4o predictions for examples where length is less than 50 tokens
@@ -203,5 +203,5 @@ plt.title('F1 Score vs Cost per Million Tokens')
 for i, model in enumerate(model_names):
     print(model)
     ax.annotate(model, (costs[i], f1_scores[i]), textcoords="offset points", xytext=(0,10), ha='center')
-plt.savefig("accuracy_vs_cost_plot.png", dpi=300, bbox_inches='tight')
+plt.savefig("plots/accuracy_vs_cost_plot.png", dpi=300, bbox_inches='tight')
 plt.show()
